@@ -1,0 +1,1 @@
+Developed a web application for weather forecast using HTML, CSS, and JavaScript, integrating external APIs (OpenWeather) to deliver real-time weather updates to users. Created a user-friendly and visually appealing interface with HTML and CSS.
