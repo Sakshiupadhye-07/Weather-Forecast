@@ -1,115 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
     
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Weather Forecast</title>
-        <link rel="stylesheet" href="Weather.css">
-        <link rel="icon" type="image/png" href="images/mist.png">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+    <link rel="stylesheet" href="Weather.css">
+    <link rel="icon" type="image/png" href="images/mist.png">
+</head>
 
-    </head>
-
-    <body>
-        <div class="card">
-            <div class="search">
-                <input type="text" , placeholder="Enter city name" , spellcheck="false">
+<body>
+    <div class="background-video">
+        <video autoplay muted loop id="bg-video">
+            <source src="" type="video/mp4" id="video-source">
+            Your browser does not support HTML5 video.
+        </video>
+    </div>
+    
+    <div class="card">
+        <div class="search">
+            <input type="text" placeholder="Enter city name" spellcheck="false">
             <button>
                 <img src="images/search.png">
             </button>
-            </div>
-            <div class="error">
-                <p>Invalid city name</p>
-            </div>
-            <div class="weather">
-                <img src="images/rain.png" class="weather-icon">
-                <h1 class="temp">22°c</h1>
-                <h2 class="city">New York</h2>
-                <div class="details">
-                    <div class="col">
-                        <img src="images/humidity.png">
-                        <div>
-                            <p class="humidity">50%</p>
-                            <p>Humidity</p>
-                        </div>
+        </div>
+        <div class="error">
+            <p>Invalid city name</p>
+        </div>
+        <div class="weather">
+            <img src="images/rain.png" class="weather-icon">
+            <h1 class="temp">22°c</h1>
+            <h2 class="city">New York</h2>
+            <div class="details">
+                <div class="col">
+                    <img src="images/humidity.png">
+                    <div>
+                        <p class="humidity">50%</p>
+                        <p>Humidity</p>
                     </div>
-                    <div class="col">
-                        <img src="images/wind.png">
-                        <div>
-                            <p class="wind">15 km/h</p>
-                            <p>Wind Speed</p>
-                        </div>
+                </div>
+                <div class="col">
+                    <img src="images/wind.png">
+                    <div>
+                        <p class="wind">15 km/h</p>
+                        <p>Wind Speed</p>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-
-
-
-        <script>
-            const apiKey = "f4050d8896a9ffd0c1a266d5184811ef";
-            const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
-
-            const searchBox = document.querySelector(".search input")
-            const searchBtn = document.querySelector(".search button")
-            const weatherIcon = document.querySelector(".weather-icon")
-
-
-
-            async function checkWeather(city){
-                const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
-
-
-                if(response.status == 404){
-                    document.querySelector(".error").style.display = "block";
-                    document.querySelector(".weather").style.display = "none";
-
-                }
-                else{
-                    var data = await response.json();
-
-                    document.querySelector(".city").innerHTML = data.name;
-                    document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°c";
-                    document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
-                    document.querySelector(".wind").innerHTML = data.wind.speed + " km/hr";
-
-                    if(data.weather[0].main == "Clouds"){
-                        weatherIcon.src = "images/clouds.png"
-                    }
-                    else if(data.weather[0].main == "Clear"){
-                        weatherIcon.src = "images/clear.png"
-                    }
-                    else if(data.weather[0].main == "Rain"){
-                        weatherIcon.src = "images/rain.png"
-                    }
-                    else if(data.weather[0].main == "Drizzle"){
-                        weatherIcon.src = "images/drizzle.png"
-                    }
-                    else if(data.weather[0].main == "Mist"){
-                        weatherIcon.src = "images/mist.png"
-                    }
-                    else if(data.weather[0].main == "Snow"){
-                        weatherIcon.src = "images/snow.png"
-                    }
-
-                    document.querySelector(".weather").style.display = " block";
-                    document.querySelector(".error").style.display = "none";
-
-                }
-            }
-
-
-            function handleEvent(event) {
-                if (event.type === 'click' || (event.type === 'keypress' && event.key === 'Enter')) {
-                    checkWeather(searchBox.value);
-                }
-            }
-
-            searchBtn.addEventListener("click", handleEvent);
-            searchBox.addEventListener("keypress", handleEvent);
-        </script>
-
-    </body>
+    <script src="Weather.js"></script>
+</body>
 
 </html>
